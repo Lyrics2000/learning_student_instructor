@@ -11,7 +11,7 @@
 
 
 
-{% include 'header.html' %}
+{% include 'header2.html' %}
 
 <div class="mdk-header-layout__content">
 
@@ -47,16 +47,21 @@
                                     <span class="avatar-title rounded-circle bg-soft-secondary text-muted">AD</span>
                                 </span>
                                 <span class="flex d-flex flex-column">
-                                    <strong>Adrian Demian</strong>
+                                    {% if request.user.is_authenticated %}
+
+                                    <strong>{{request.user.first_name}} {{request.user.last_name}}</strong>
+
+
                                     <small class="text-muted text-uppercase">Instructor</small>
+
+                                    {% endif %}
                                 </span>
                             </a>
                             <div class="dropdown ml-auto">
                                 <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="student-dashboard.html">Dashboard</a>
-                                    <a class="dropdown-item" href="student-profile.html">My profile</a>
-                                    <a class="dropdown-item" href="student-edit-account.html">Edit account</a>
+                                    <a class="dropdown-item" href="{% url 'instructor:instructor' %}">Dashboard</a>
+                            
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" rel="nofollow" data-method="delete" href="login.html">Logout</a>
                                 </div>
@@ -74,7 +79,7 @@
                         </li>
                           
                             <li class="sidebar-menu-item">
-                                <a class="sidebar-menu-button" href="">
+                                <a class="sidebar-menu-button" href="{% url 'instructor:createQuiz' %}">
                                     <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">tab</i>
                                     <span class="sidebar-menu-text">Create A Quiz</span>
                                 </a>

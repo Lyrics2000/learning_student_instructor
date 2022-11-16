@@ -23,7 +23,7 @@
             <div class="card card-group-row__card card-body card-body-x-lg flex-row align-items-center">
                 <div class="flex">
                     <div class="card-header__title text-muted mb-2">Total Quiz</div>
-                    <div class="text-amount">12,920</div>
+                    <div class="text-amount">{{total_quiz}}</div>
                 
                 </div>
 
@@ -38,7 +38,7 @@
             <div class="card card-group-row__card card-body card-body-x-lg flex-row align-items-center">
                 <div class="flex">
                     <div class="card-header__title text-muted mb-2">Passed Quiz</div>
-                    <div class="text-amount">53,642</div>
+                    <div class="text-amount">{{passed}}</div>
                 </div>
                 <div class="avatar">
                     <span class="bg-soft-primary avatar-title rounded-circle text-center text-primary">
@@ -55,7 +55,7 @@
             <div class="card card-group-row__card card-body card-body-x-lg flex-row align-items-center">
                 <div class="flex">
                     <div class="card-header__title text-muted mb-2">Failed Quiz</div>
-                    <div class="text-amount">182</div>
+                    <div class="text-amount">{{failed}}</div>
                    
                 </div>
                 <div class="avatar">
@@ -83,69 +83,24 @@
 
                 <ul class="list-group list-group-flush mb-0" style="z-index: initial;">
 
+
+                    {% if topics %}
+                    {% for k in  topics %}
                     <li class="list-group-item" style="z-index: initial;">
                         <div class="d-flex align-items-center">
-                            <a href="#" class="mr-3">
-                                <img src="https://images.unsplash.com/photo-1562577309-4932fdd64cd1?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=clamp&amp;w=35&amp;h=35" alt="course" class="">
-
-                            </a>
+                          
                             <div class="flex">
-                                <a href="#" class="text-body"><strong>Basics of Social Media</strong></a>
+                                <a href="#" class="text-body"><strong>{{k.title}}</strong></a>
                                 <div class="d-flex align-items-center">
-                                    <small class="text-muted">60 Attempts</small>
+                                    <small class="text-muted">{{k.attempts}} Attempts</small>
                                 </div>
                             </div>
                         
                         </div>
                     </li>
-
-                    <li class="list-group-item" style="z-index: initial;">
-                        <div class="d-flex align-items-center">
-                            <a href="#" class="mr-3">
-                                <img src="{% static 'assets/images/logos/vuejs.svg' %}" alt="course" class="">
-
-                            </a>
-                            <div class="flex">
-                                <a href="#" class="text-body"><strong>Learn Vue.js Fundamentals</strong></a>
-                                <div class="d-flex align-items-center">
-                                    <small class="text-muted">25 Attempts</small>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </li>
-
-                    <li class="list-group-item" style="z-index: initial;">
-                        <div class="d-flex align-items-center">
-                            <a href="#" class="mr-3">
-                                <img src="{% static 'assets/images/logos/angular.svg' %}" alt="course" class="">
-
-                            </a>
-                            <div class="flex">
-                                <a href="#" class="text-body"><strong>Angular in Steps</strong></a>
-                                <div class="d-flex align-items-center">
-                                    <small class="text-muted">100 Attempts</small>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </li>
-
-                    <li class="list-group-item" style="z-index: initial;">
-                        <div class="d-flex align-items-center">
-                            <a href="#" class="mr-3">
-                                <img src="{% static 'assets/images/logos/javascript.svg' %}" alt="course" class="">
-
-                            </a>
-                            <div class="flex">
-                                <a href="#" class="text-body"><strong>ES6 Foundations</strong></a>
-                                <div class="d-flex align-items-center">
-                                    <small class="text-muted">80 Attempts</small>
-                                </div>
-                            </div>
-                          
-                        </div>
-                    </li>
+                    {% endfor %}
+                    {% endif %}
+                  
 
                 </ul>
             </div>

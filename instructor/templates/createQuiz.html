@@ -1,0 +1,166 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="container-fluid page__heading-container">
+    <div class="page__heading d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
+        {% if topic %}
+        <h1 class="m-lg-0">{{topic}} :: Topic</h1>
+        {% endif %}
+        
+        
+      
+    </div>
+</div>
+
+
+
+
+
+<div class="container-fluid page__container">
+
+
+    <div class="card">
+        <div class="card-body card-form__body">
+            <form action="{% url 'instructor:createQuiz' %}" method="POST">
+                {% csrf_token %} 
+                <div class="form-group mb-3">
+                    <label class="control-label h6">New Topic:</label>
+                    {{question.question}}
+                </div>
+                <button class="btn btn-primary"><i class="material-icons">add</i> Create Topic</button>
+            </form>
+        </div>
+    </div>
+
+
+
+    <div class="card">
+        <div class="card-body card-form__body">
+            <form action="{% url 'instructor:createQestion' %}" method="POST">
+                {% csrf_token %} 
+                <div class="form-group mb-3">
+                    <label class="control-label h6">New Question:</label>
+                    {{quiz.quiz}}
+                </div>
+                <button class="btn btn-primary"><i class="material-icons">add</i> Create Quesrion</button>
+            </form>
+        </div>
+    </div>
+    <div id="questions_wrapper">
+
+
+        {% if all_quizes %}
+
+        {% for u in  all_quizes %}
+        
+        <div class="card mb-4" data-position="1" data-question-id="1">
+            <form action="{% url 'instructor:createQuizChoices' %}" method = "POST">
+                {% csrf_token %} 
+            <div class="card-header d-flex justify-content-between">
+                <div class="d-flex align-items-center ">
+
+                    <span class="question_handle btn btn-sm btn-secondary">
+                        <i class="material-icons">menu</i>
+                    </span>
+                    <div class="h4 m-0 ml-4">Q: {{u.quiz}}</div>
+                </div>
+                <div>
+                    <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <div id="answerWrapper_1" class="mb-4">
+                    <div class="row mb-1">
+                        <div class="col"><strong></strong></div>
+                        <div class="col text-right"><strong>Correct</strong></div>
+                    </div>
+
+                    
+                        <div class="form-group mb-3">
+                            <label class="control-label h6">Add Answer</label>
+                            <input name="input" type="text" class="form-control" />
+                            <input name="quiz_number" type="hidden" value="{{u.id}}" class="form-control" />
+                        </div>
+                        
+                        <ul class="list-group" id="answer_container_1">
+                            <li class="list-group-item d-flex" data-position="1" data-answer-id="1" data-question-id="1">
+                                <span class="mr-2"><i class="material-icons text-light-gray">menu</i></span>
+                                <div>
+                                    Is This Answer?
+                                </div>
+                                <div class="ml-auto">
+                                    <input type="radio" name="question[correct_answer_id]" id="correct_answer_1" checked>
+                                </div>
+                            </li>
+                        
+                        </ul>
+
+
+                        <label style="margin-top:10px !important" class="control-label h6">Answer Choices</label>
+
+                        <ul class="list-group" id="answer_container_1">
+                            <li class="list-group-item d-flex" data-position="1" data-answer-id="1" data-question-id="1">
+                               
+                                <div>
+                                    First Answer Title
+                                </div>
+                                
+                            </li>
+                            <li class="list-group-item d-flex" data-position="2" data-answer-id="2" data-question-id="1">
+                               
+                                <div>
+                                    Second Answer
+                                </div>
+                               
+                            </li>
+                            <li class="list-group-item d-flex" data-position="3" data-answer-id="3" data-question-id="1">
+                        
+                                <div>
+                                    Third Answer
+                                </div>
+                               
+                            </li>
+                        </ul>
+                
+                </div>
+
+
+
+
+                <div class="">
+               
+                        <div class="form-group mb-0">
+                            <button class="btn btn-success">New Answer</button>
+                        </div>
+                    
+                </div>
+          
+            </div>
+        </form>
+        </div>
+
+        {% endfor %}
+        
+        
+        {% endif %}
+
+        
+
+
+      
+
+        
+
+
+    </div>
+</div>
+
+
+{% endblock content %}
+
+
+
