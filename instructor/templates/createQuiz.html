@@ -68,7 +68,7 @@
                     <div class="h4 m-0 ml-4">Q: {{u.quiz}}</div>
                 </div>
                 <div>
-                    <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                    <a href="{% url 'instructor:deleteQuiz'  u.id %}" class="btn btn-danger btn-sm">Delete</a>
                 </div>
             </div>
             <div class="card-body">
@@ -93,7 +93,7 @@
                                     Is This Answer?
                                 </div>
                                 <div class="ml-auto">
-                                    <input type="radio" name="question[correct_answer_id]" id="correct_answer_1" checked>
+                                    <input type="radio" name="questioncorrect_answer_id" id="correct_answer_1" >
                                 </div>
                             </li>
                         
@@ -103,27 +103,36 @@
                         <label style="margin-top:10px !important" class="control-label h6">Answer Choices</label>
 
                         <ul class="list-group" id="answer_container_1">
-                            <li class="list-group-item d-flex" data-position="1" data-answer-id="1" data-question-id="1">
+                            {% if choices %}
+                             {% for r in choices  %}
+                             {% if r.quiz.id == u.id %}
+                             {% if r.answer %}
+                             <li class="list-group-item d-flex" data-position="1" data-answer-id="1" data-question-id="1">
                                
-                                <div>
-                                    First Answer Title
+                                <div style="color:green !important">
+                                    {{r.choise}}
                                 </div>
                                 
                             </li>
-                            <li class="list-group-item d-flex" data-position="2" data-answer-id="2" data-question-id="1">
+                             {% else %}
+
+                             <li class="list-group-item d-flex" data-position="1" data-answer-id="1" data-question-id="1">
                                
                                 <div>
-                                    Second Answer
+                                    {{r.choise}}
                                 </div>
-                               
+                                
                             </li>
-                            <li class="list-group-item d-flex" data-position="3" data-answer-id="3" data-question-id="1">
-                        
-                                <div>
-                                    Third Answer
-                                </div>
-                               
-                            </li>
+                             {% endif %}
+                             
+                             
+                             {% endif %}
+                            
+                             {% endfor %}
+                            
+                            {% endif %}
+                           
+                            
                         </ul>
                 
                 </div>

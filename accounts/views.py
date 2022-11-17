@@ -40,6 +40,7 @@ def signIn(request):
 
             else:
                 login(request,user)
+                request.session['topic']  =  None
                 return redirect("instructor:instructor")
 
         else:

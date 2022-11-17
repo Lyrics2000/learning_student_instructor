@@ -33,23 +33,31 @@ def instructor(request):
 
 def createQuiz(request):
 
+ 
+    
     bb = request.session['topic'] 
+
+
 
 
 
     login_form = QuestionForm(request.POST,None)
     question = QuestionCreate(request.POST,None)
+  
 
     if bb is not None:
 
         jui = QuizTopic.objects.get(id = int(bb))
         qqy = Quiz.objects.filter(topic = jui)
 
+        choises = Choises.objects.all()
+
         context = {
         'question' : login_form,
         "topic" : jui.title,
         "quiz":question,
-        "all_quizes" : qqy
+        "all_quizes" : qqy,
+        "choices":choises
         }
 
         if request.method == "POST":
@@ -65,7 +73,8 @@ def createQuiz(request):
                     'question' : login_form,
                     "topic" : obj.title,
                     "quiz":question,
-                     "all_quizes" : qqy
+                     "all_quizes" : qqy,
+                       "choices":choises
                 }
                 return render(request,'createQuiz.html',context)
 
@@ -78,7 +87,7 @@ def createQuiz(request):
 
         context = {
         'question' : login_form,
-        "topic" : jui.title,
+        "topic" : "",
         "quiz":question,
         "all_quizes" : []
     }
@@ -135,17 +144,41 @@ def createQuizChoices(request):
     if request.method == "POST":
         quiz_number = request.POST.get("quiz_number")
         input_ = request.POST.get("input")
+        answer = request.POST.get("questioncorrect_answer_id")
 
-        get_q = Quiz.objects.get(id = int(quiz_number))
-        choise = Choises.objects.create(
-            quiz = get_q,
-            choise = input_
-        )
+        if answer is not None:
+            if "on" in answer.lower():
 
-        if choise is not None:
-            return redirect("instructor:createQuiz")
+                get_q = Quiz.objects.get(id = int(quiz_number))
+                choise = Choises.objects.create(
+                    quiz = get_q,
+                    choise = input_,
+                    answer = True
+                )
+
+                if choise is not None:
+                    return redirect("instructor:createQuiz")
+        else:
+            get_q = Quiz.objects.get(id = int(quiz_number))
+            choise = Choises.objects.create(
+                quiz = get_q,
+                choise = input_
+                
+            )
+
+            if choise is not None:
+                return redirect("instructor:createQuiz")
+
 
         return redirect("instructor:createQuiz")
+
+
+
+def deleteQuiz(request,id):
+    Quiz.objects.get(id = int(id)).delete()
+    return redirect("instructor:createQuiz")
+
+
 
         
         

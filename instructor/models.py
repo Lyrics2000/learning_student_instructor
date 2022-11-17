@@ -20,9 +20,6 @@ class QuizTopic(models.Model):
 class Quiz(models.Model):
     topic = models.ForeignKey(QuizTopic,on_delete=models.CASCADE,blank=True,null=True)
     quiz = models.CharField(max_length=255)
-    
-
-
 
     def __str__(self) -> str:
         return self.quiz
